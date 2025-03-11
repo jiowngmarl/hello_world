@@ -21,5 +21,6 @@ public class VarExe4 {
 		
 		System.out.println("정수의 합 : " + sum);
 		System.out.println("평균 : " + avg);
+		System.out.println("변경된 사항");
 	}
 }
