@@ -59,7 +59,11 @@ public class ArrayExe3Calendar {
 			if(String.valueOf(d).length() == 1) {
 				System.out.print("   " + d);
 			} else if (String.valueOf(d).length() == 2){
-				System.out.print("  " + d);
+				if(d == 21) {
+					System.out.print(" TST");
+				} else {
+					System.out.print("  " + d);
+				}
 			}
 			if((d + space) % 7 == 0) {
 				System.out.println();
