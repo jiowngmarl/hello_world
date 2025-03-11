@@ -38,7 +38,6 @@ public class ArrayExe3Calendar {
 	}
 	
 	
-	
 	public static void main(String[] args) {
 		
 		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};

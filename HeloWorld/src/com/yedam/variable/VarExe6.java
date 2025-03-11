@@ -54,6 +54,7 @@ public class VarExe6 {
 
 		Scanner scanner = new Scanner(System.in);
 		
+		
 		Member m1 = new Member(m1.score);
 		m1.name = "홍길동";
 		Member m2 = new Member();
