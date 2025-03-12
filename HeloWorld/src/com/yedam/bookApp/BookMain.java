@@ -196,5 +196,6 @@ public class BookMain {
 		bookStore[2] = new Book("HTML,CSS", "김하늘", "가람출", 25000, 3);
 		
 		System.out.println("수정");
+		
 	}
 }

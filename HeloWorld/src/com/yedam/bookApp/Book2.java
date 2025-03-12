@@ -4,13 +4,13 @@ public class Book2 {
 	
 	private String title;
 	private String author;
-	private String compony;
+	private String company;
 	private int price;
 	
-	public Book2(String title, String author, String compony, int price) {
+	public Book2(String title, String author, String company, int price) {
 		this.title = title;
 		this.author = author;
-		this.compony = compony;
+		this.company = company;
 		this.price = price;
 	}
 	
@@ -18,8 +18,30 @@ public class Book2 {
 		this.title = title;
 	}
 	
-	public void set() {
-		System.out.println("수정");
-		System.out.println("수정");
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getAuthor() {
+		return author;
+	}
+	
+	public String getCompany() {
+		return company;
+	}
+	public int getPrice() {
+		return price;
 	}
 }
