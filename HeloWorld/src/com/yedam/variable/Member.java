@@ -39,4 +39,11 @@ public class Member {
 		}
 		this.score = score;
 	}
+	public void getScore(int score) {
+		this.score = score;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 }
