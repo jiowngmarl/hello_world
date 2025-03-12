@@ -20,6 +20,7 @@ public class ArrayExe4 {
 		}
 		for(int i = 0; i < intAry.length; i++) {
 			System.out.println(intAry[i]);
+			System.out.println("수정");
 		}
 	}
 }

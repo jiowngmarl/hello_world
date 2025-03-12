@@ -78,6 +78,7 @@ public class Book {
 
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
+		System.out.println("수정");
 	}
 }
 

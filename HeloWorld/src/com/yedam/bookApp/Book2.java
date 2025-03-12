@@ -20,5 +20,6 @@ public class Book2 {
 	
 	public void set() {
 		System.out.println("수정");
+		System.out.println("수정");
 	}
 }
