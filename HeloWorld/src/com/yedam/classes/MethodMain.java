@@ -55,5 +55,7 @@ public class MethodMain {
 		
 		double sum2 = m1.sum(new double[] {10, 10.5, 20.5});
 		System.out.println(sum2);
+		
+		System.out.println("수정");
 	}
 }

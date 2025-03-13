@@ -44,5 +44,8 @@ public class MethodExe3 {
 				System.out.println();
 			}
 		}
+
+		System.out.println("수정");
 	}
+	
 }

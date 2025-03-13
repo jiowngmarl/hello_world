@@ -32,6 +32,7 @@ public class Product {
 		this.price = price;
 	}
 	public String showList() {
-		return productCode + " " + productName + " " + price;
+		System.out.println("수정");
+		return productCode + " " + productName + " " + price;	
 	}
 }
