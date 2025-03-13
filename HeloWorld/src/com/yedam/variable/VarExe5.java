@@ -42,5 +42,7 @@ public class VarExe5 {
 			}
 		}
 		System.out.println("end of prog.");
+		
+		System.out.println("수정");
 	}
 }

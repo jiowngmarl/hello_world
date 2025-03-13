@@ -127,12 +127,40 @@ public class BookMain {
 		}
 		
 		int seqNo = 1;
-		for(Book bok : bookStore) {
+		Book[] list = searchList(null);
+		for(Book bok : list) {
 			if(bok != null) {
 				System.out.println(seqNo++ + " " +bok.showList());
 			}
 		}
 	} // end of list()
+	
+	public static void listComany() {
+		System.out.print("조회할 출판사를 입력하세요");
+		String company = scanner.nextLine();
+		
+		Book[] list = searchList(company);
+		int seqNo = 1;
+		for(Book bok : list) {
+			if(bok != null && bok.getCompany().equals(company)) {
+				System.out.println(seqNo++ + " " +bok.showList());
+			}
+		}
+	}
+	
+	public static Book[] searchList(String keyword) {
+		Book[] list = new Book[100];
+		int idx = 0;
+		for (int i = 0;  i < bookStore.length; i++) {
+			if(bookStore[i] != null) {
+				if (keyword == null || bookStore[i].getCompany().equals(keyword)) {
+					list[idx++] = bookStore[i];
+				}
+			}
+		}
+		return list;
+		
+	}
 	
 	public static void detail() {
 		
@@ -153,13 +181,16 @@ public class BookMain {
 		}
 	}
 	
+
+	
+	
 	public static void main(String[] args) {
 		
 		init();
 		boolean run = true;
 		
 		while (run) {
-			System.out.println("1.도서등록 / 2.수정 / 3.삭제 / 4.목록 / 5.상세조회 / 9.종료");
+			System.out.println("1.도서등록 / 2.수정 / 3.삭제 / 4.목록 / 5.상세조회 / 6.상세목록 / 9.종료");
 			System.out.print("선택 >> ");
 			int menu = Integer.parseInt(scanner.nextLine());
 			
@@ -179,6 +210,10 @@ public class BookMain {
 			case 5 :
 				detail();
 				break;
+			case 6 :
+				listComany();
+				
+				break;
 			case 9 :
 				System.out.println("프로그램을 종료합니다");
 				run = false;
@@ -194,6 +229,9 @@ public class BookMain {
 		bookStore[0] = new Book("이것이자바다", "신용권", "한빛출", 20000, 1);
 		bookStore[1] = new Book("스크립트기초", "박기초", "우리출", 26000, 2);
 		bookStore[2] = new Book("HTML,CSS", "김하늘", "가람출", 25000, 3);
+		bookStore[3] = new Book("이것이자바다2", "신용권", "한빛출", 20000, 4);
+		bookStore[4] = new Book("스크립트기초2", "박기초", "우리출", 26000, 5);
+		bookStore[5] = new Book("HTML,CSS2", "김하늘", "가람출", 25000, 6);
 		
 		System.out.println("수정");
 		
