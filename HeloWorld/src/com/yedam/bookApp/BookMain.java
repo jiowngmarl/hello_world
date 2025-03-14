@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class BookMain {
 	
-	static Book[] bookStore = new Book[100];
-	static Scanner scanner = new Scanner(System.in);
+	 Book[] bookStore = new Book[100];
+	 Scanner scanner = new Scanner(System.in);
 	
-	public static int getSequnceNo() {
+	public  int getSequnceNo() {
 		int max = 0;
 		for(int i = 0; i < bookStore.length; i++) {
 			if(bookStore[i] != null && bookStore[i].getOrderNo() > max) {
@@ -18,7 +18,7 @@ public class BookMain {
 	}
 	
 	// 등록기능을 구현하는 메서드
-	public static void add() {
+	public  void add() {
 		System.out.print("제목입력 : ");
 		String title = scanner.nextLine();
 		for(int i = 0; i < bookStore.length; i++) {
@@ -45,7 +45,7 @@ public class BookMain {
 	} // end of add()
 	
 	// 수정기능을 구현하는 메서드
-	public static void edit() {
+	public  void edit() {
 		
 		System.out.print("수정 도서명 입력 : ");
 		String title = scanner.nextLine();
@@ -83,7 +83,7 @@ public class BookMain {
 		
 	} // end of edit()
 	
-	public static void delete() {
+	public  void delete() {
 		
 		while(true) {
 			System.out.print("제목입력 : ");
@@ -105,7 +105,7 @@ public class BookMain {
 		
 	} // end of delete()
 	
-	public static void list() {
+	public  void list() {
 		init();
 		
 		// 순번 정렬
@@ -135,7 +135,7 @@ public class BookMain {
 		}
 	} // end of list()
 	
-	public static void listComany() {
+	public  void listComany() {
 		System.out.print("조회할 출판사를 입력하세요");
 		String company = scanner.nextLine();
 		
@@ -148,7 +148,7 @@ public class BookMain {
 		}
 	}
 	
-	public static Book[] searchList(String keyword) {
+	public  Book[] searchList(String keyword) {
 		Book[] list = new Book[100];
 		int idx = 0;
 		for (int i = 0;  i < bookStore.length; i++) {
@@ -162,7 +162,7 @@ public class BookMain {
 		
 	}
 	
-	public static void detail() {
+	public  void detail() {
 		
 		boolean isExist = false;
 		System.out.print("상세보기 책 제목 입력 : ");
@@ -184,7 +184,7 @@ public class BookMain {
 
 	
 	
-	public static void main(String[] args) {
+	public  void main(String[] args) {
 		
 		init();
 		boolean run = true;
@@ -225,16 +225,12 @@ public class BookMain {
 		System.out.println("end of prog.");
 		
 	}
-	public static void init() {
+	public  void init() {
 		bookStore[0] = new Book("이것이자바다", "신용권", "한빛출", 20000, 1);
 		bookStore[1] = new Book("스크립트기초", "박기초", "우리출", 26000, 2);
 		bookStore[2] = new Book("HTML,CSS", "김하늘", "가람출", 25000, 3);
 		bookStore[3] = new Book("이것이자바다2", "신용권", "한빛출", 20000, 4);
 		bookStore[4] = new Book("스크립트기초2", "박기초", "우리출", 26000, 5);
 		bookStore[5] = new Book("HTML,CSS2", "김하늘", "가람출", 25000, 6);
-		
-		System.out.println("수정");
-		System.out.println("수정");
-		
 	}
 }

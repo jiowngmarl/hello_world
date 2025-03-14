@@ -1,15 +1,113 @@
 package com.yedam.classes;
 
+import java.io.ObjectInputStream.GetField;
+import java.util.Scanner;
+
 public class MethodMain {
 	
+	private String code;
+	private String name;
+	private int price;
+	
+	public MethodMain(String code, String name, int price) {
+		this.code = code;
+		this.name = name;
+		this.price = price;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public static void main(String[] args) {
+
+		officeApp();	
+	}
+	
+	static void officeApp() {
 		
+		// 기능을 정의
+		MethodExe2 m2 = new MethodExe2();
+		Product[] lists = new Product[10];
+		
+		// 사용자의 입력을 받아서 기능을 구현 (1.목록 / 2.추가 / 3.수정 / 4.삭제 / 9.종료)  
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("1.목록 / 2.추가 / 3.수정 / 4.삭제 / 9.종료");
+		System.out.print("번호 입력 : ");
+		int num = Integer.parseInt(scanner.nextLine());  
+		boolean start = true;
+		
+		while(start) {
+			
+			switch(num) {
+			case 1 :
+				break;
+			case 2 :
+				System.out.println("추가 코드:");
+				String code = scanner.nextLine();
+				System.out.println("추가 이름:");
+				String name = scanner.nextLine();
+				System.out.println("추가 가격:");
+				String price = scanner.nextLine();
+				
+				MethodMain m = new MethodMain(code, name, Integer.parseInt(price));
+				
+				break;
+			case 3 :
+				
+				m2.productList(null);
+				break;
+			case 4 :
+				System.out.print("삭제할 코드 입력 : ");
+				m2.remove(null);
+				
+				break;
+			case 9 :
+				System.out.println("종료합니다");
+				start = false;
+				break;
+			}
+			
+		}
+		
+	}
+		
+		public void method4() {
+			
+			MethodExe4 m4= new MethodExe4();
+			m4.main();
+		}
+	
+		public void method3() {
+			
 			MethodExe3 gugudan = new MethodExe3();
 			System.out.println(gugudan.gugudan(3, 7));
 			gugudan.printStar(4, "*");
 			gugudan.printCard();
-			
-	}
+		}
+	
+	
 		public void method2() {
 			MethodExe2 m2 = new MethodExe2();
 

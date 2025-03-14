@@ -63,7 +63,6 @@ public class MethodExe2 {
 				return true;
 			}
 		}
-		System.out.println("수정");
 		return false;
 	}
 }
