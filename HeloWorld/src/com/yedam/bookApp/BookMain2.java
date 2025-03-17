@@ -11,6 +11,17 @@ public class BookMain2 {
 	
 	private static BookMain2 instance = new BookMain2();
 	
+	
+	boolean login(String id, String pw) {
+		for(int i = 0; i < members.length; i++) {
+			if()
+		}
+		
+	}
+	
+	
+	
+	
 	// 1. 생성자 private 선언
 	private BookMain2() {
 		
