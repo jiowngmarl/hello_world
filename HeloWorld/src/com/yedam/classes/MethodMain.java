@@ -1,6 +1,7 @@
 package com.yedam.classes;
 
 import java.io.ObjectInputStream.GetField;
+import java.util.List;
 import java.util.Scanner;
 
 public class MethodMain {
@@ -123,11 +124,9 @@ public class MethodMain {
 			search.setProductName("지우개");
 			search.setPrice(700);
 			
-			Product[] list = m2.productList(search);
-			for(int i = 0;  i < list.length; i++) {
-				if(list[i] != null) {
-					System.out.println(list[i].showList());
-				}
+			List<Product> list = m2.productList(search);
+			for(int i = 0;  i < list.size(); i++) {
+					System.out.println(list.get(i).showList());
 			}
 			
 			if(m2.remove("A001")) {

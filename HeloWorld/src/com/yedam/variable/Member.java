@@ -17,6 +17,23 @@ public class Member {
 		this.score = score;
 	}
 	
+	// Set컬렉션의 중복된 값으로 지정하는 것
+	// name, score => hashCode + equals => 동일한값
+	
+	public int hasCode() {
+		return score;
+		
+	}
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(obj instanceof Member) {
+			Member target = (Member) obj;
+			return this.name.equals(target.name);	
+		}
+		return false;
+	}
+	
 	// 클래스 : 메소드 (기능) = 반환값 메소드명 (매개값)
 	
 	public void showInfo() {
@@ -45,5 +62,12 @@ public class Member {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	// toString 재정의
+	
+	public String toString() {
+		return "이름 : " + name + ", 점수 : " + score;
+		
 	}
 }
