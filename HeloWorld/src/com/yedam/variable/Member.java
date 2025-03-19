@@ -19,8 +19,8 @@ public class Member {
 	
 	// Set컬렉션의 중복된 값으로 지정하는 것
 	// name, score => hashCode + equals => 동일한값
-	
-	public int hasCode() {
+	@Override
+	public int hashCode() {
 		return score;
 		
 	}
