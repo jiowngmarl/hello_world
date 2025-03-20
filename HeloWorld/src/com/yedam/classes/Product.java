@@ -1,6 +1,8 @@
 package com.yedam.classes;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable{ // Serializable 을 상속받으므로 Product는 직렬화, 역직렬화가 가능해졌다
 	
 	private String productCode;
 	private String productName;
@@ -32,7 +34,6 @@ public class Product {
 		this.price = price;
 	}
 	public String showList() {
-		System.out.println("수정");
 		return productCode + " " + productName + " " + price;	
 	}
 }
