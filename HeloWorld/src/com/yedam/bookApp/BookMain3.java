@@ -179,7 +179,6 @@ public class BookMain3 {
 				System.out.println(seqNo++ + " " + bok.showList());
 		}
 	} // end of listCompany().
-
 	private void bookInfo() {
 		// 반드시 값을 입력받도록.
 		String title = "";
