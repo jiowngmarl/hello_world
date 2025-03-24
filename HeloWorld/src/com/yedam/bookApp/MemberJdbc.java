@@ -15,7 +15,8 @@ public class MemberJdbc {
 	Connection getConnect() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String userId = "scott";
-		String userPw = "tiger";
+		String userPw = "tiger";	
+		
 		
 		try {
 			Connection conn = DriverManager.getConnection(url, userId, userPw);
