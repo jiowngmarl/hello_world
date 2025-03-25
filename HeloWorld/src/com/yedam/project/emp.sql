@@ -60,19 +60,18 @@ commit;
 
 --사용자 테이블
 create table tbl_user (
-                       user_id varchar2 (20), 
-                       user_pw varchar2 (20)
+                       user_id varchar2 (20) not null, 
+                       user_pw varchar2 (20) not null
                        );
                        
 --판매자 테이블
 create table tbl_company (
-                          company_num varchar2 (10),
-                          company_id varchar2 (20),
-                          company_pw varchar2 (20)
+                          company_num varchar2 (10) PRIMARY KEY,
+                          company_id varchar2 (20) not null,
+                          company_pw varchar2 (20) not null
                           );
-                       
-                       
--- 로그인을 할 사용자 계정을 확인
+                          
+-- 로그인 할 사용자 계정을 확인
 select user_id,
        user_pw
 from   tbl_user
@@ -83,37 +82,84 @@ select company_num,
        company_id,
        company_pw
 from   tbl_company
-where  company_num = ? or company_id = ? and company_pw = ?;
+where  company_num = ? and company_id = ? and company_pw = ?;
 
--- 회원가입을 위한 insert
+-- 사용자 회원가입을 위한 insert
 insert into tbl_user (user_id, user_pw)
 values (?, ?);
---회원가입 중 id 중첩 확인
+-- 사용자 회원가입 중 id 중첩 확인
 select *
 from   tbl_user
 where  user_id = ?;
 
+--판매자 회원가입을 위한 insert
 insert into tbl_company (company_num, company_id, company_pw)
 values (?, ?, ?);
 
+-- 판매자 회원가입 중 사업자번호, id 중첩 확인
 select *
 from tbl_company
-where company_num = ?;
+where company_num = ? or company_id = ?;
+
+-- 상품을 관리하는 테이블 생성 (company 테이블의 primary key를 받는 자식 테이블)
+create table tbl_product(
+                         company_num VARCHAR(20),
+                         product_code VARCHAR(10),
+                         product_name VARCHAR2(20),
+                         product_price VARCHAR(20),
+                         product_company VARCHAR(20),
+                         FOREIGN KEY (company_num) REFERENCES tbl_company(company_num)
+                         );
+
+
+-- 상품 정보를 추가하는 insert
+insert into tbl_product(company_num ,product_code, product_name, product_price, product_company)
+values(? ,?, ?, ?, ?);
+
+-- 상품 정보를 추가할 때 상품코드의 중복을 제거
+select *
+from tbl_product
+where product_code = ?;
+
+-- 등록한 상품을 출력
+select *
+from tbl_product
+where company_num = ?
+order by product_code;
+
+-- 등록한 상품을 수정
+update tbl_product
+   set product_name = nvl(?, product_name),
+       product_price = ?,
+       product_company = nvl(?, product_company)
+where  product_code = ?;
+
+-- 등록한 상품을 삭제
+delete from tbl_product
+where product_code = ?;
+
+
+insert into tbl_product
+values ('A000','001','볼펜','20000','모나미');
+insert into tbl_product
+values ('A001','004','볼펜','20000','모나미');
+
 
 insert into tbl_user
-values ('1111', '1111');
-       
+values ('1111', '1111');  
 insert into tbl_company
-values ('A000', '1111', '1111');              
-                  
+values ('A000', '1111', '1111'); 
+
+insert into tbl_company
+values ('A001','1112','1112');
+
+
+
 select *
 from tbl_user;
-
-
 select *
 from tbl_company;
-
-delete from tbl_company
-where company_id = '1111';
+select *
+from tbl_product;
 
 commit;
