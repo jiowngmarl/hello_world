@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class UserJdbc {
 
-	Connection getConnect() {
+	Connection getConnection() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String userId = "scott";
 		String userPw = "tiger";
@@ -28,7 +28,7 @@ public class UserJdbc {
 	public User loginUser(String id, String pw) { // 로그인 기능
 		
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
-		Connection connection = getConnect();
+		Connection connection = getConnection();
 		String sql = "select user_id,\r\n"
 				+ "       user_pw\r\n"
 				+ "from   tbl_user\r\n"
@@ -53,7 +53,7 @@ public class UserJdbc {
 	
 	public boolean insert(User user) { // 회원가입 기능
 		
-		Connection connection = getConnect();
+		Connection connection = getConnection();
 		String sql = "insert into tbl_user (user_id, user_pw)\r\n"
 				+ "values (?, ?)";
 		
@@ -74,7 +74,7 @@ public class UserJdbc {
 	
 	public User select(String id) {
 		
-		Connection connection = getConnect();
+		Connection connection = getConnection();
 		String sql = "select *\r\n"
 				+ "from   tbl_user\r\n"
 				+ "where  user_id = ?";
@@ -95,4 +95,99 @@ public class UserJdbc {
 		}
 		return null;
 	}
+	
+	public List<Product> userList() {
+		List<Product> list = new ArrayList<Product>();
+		Connection connection = getConnection();
+		String sql = "select product_code,\r\n"
+				+ "       product_name,\r\n"
+				+ "       product_price,\r\n"
+				+ "       product_company\r\n"
+				+ "from   tbl_product\r\n"
+				+ "order by product_code";
+		
+		try {
+			PreparedStatement psmt = connection.prepareStatement(sql);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				
+				Product product = new Product();
+				product.setProductCode(rs.getString("product_code"));
+				product.setProductName(rs.getString("product_name"));
+				product.setPrice(rs.getInt("product_price"));
+				product.setProductCompany(rs.getString("product_company"));
+				list.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public List<Product> userSearchList(String productCode) {
+		List<Product> list = new ArrayList<Product>();
+		Connection connection = getConnection();
+		String sql = "select product_code,\r\n"
+				+ "       product_name,\r\n"
+				+ "       product_price,\r\n"
+				+ "       product_company\r\n"
+				+ "from   tbl_product\r\n"
+				+ "where  product_code = ?";
+		
+		try {
+			PreparedStatement psmt = connection.prepareStatement(sql);
+			psmt.setString(1, productCode);
+			
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				
+				Product product = new Product();
+				product.setProductCode(rs.getString("product_code"));
+				product.setProductName(rs.getString("product_name"));
+				product.setPrice(rs.getInt("product_price"));
+				product.setProductCompany(rs.getString("product_company"));
+				list.add(product);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public boolean userInsert(Product product) {
+		
+		Connection connection = getConnection();
+		String sql = "insert into tbl_userProduct (\r\n"
+				+ "                             user_id,\r\n"
+				+ "                             product_code,\r\n"
+				+ "                             product_name,\r\n"
+				+ "                             product_price,\r\n"
+				+ "                             product_company\r\n"
+				+ "                             )\r\n"
+				+ "values(?, ?, ?, ?, ?)";
+		
+		try {
+			PreparedStatement psmt = connection.prepareStatement(sql);
+			psmt.setString(1, product.userId);
+			psmt.setString(2, product.productCode);
+			psmt.setString(3, product.productName);
+			psmt.setInt(4, product.price);
+			psmt.setString(5, product.productCompany);
+			
+			int r = psmt.executeUpdate();
+			
+			if(r > 0 ) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+
 }

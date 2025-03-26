@@ -2,6 +2,7 @@ package com.yedam.project;
 
 public class Product {
 
+	String userId;
 	String companyNum;
 	String productCode;
 	String productName;
@@ -11,14 +12,33 @@ public class Product {
 	
 	public Product() {}
 	
-	public Product(String companyNum, String productCode, String prodcutName, int price, String productCompany ) {
-		this.companyNum = companyNum;
+
+	public Product(User user, String productCode, String productName, int price, String productCompany) {
+	    this.userId = user.getUserId();
+	    this.productCode = productCode;
+	    this.productName = productName;
+	    this.price = price;
+	    this.productCompany = productCompany;
+	}
+	
+	
+	public Product(Company company, String productCode, String productName, int price, String productCompany ) {
+		this.companyNum = company.getCompanyNum();
 		this.productCode = productCode;
-		this.productName = prodcutName;
+		this.productName = productName;
 		this.price = price;
 		this.productCompany = productCompany;
-
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 
 	public String getCompanyNum() {
 		return companyNum;
@@ -62,6 +82,14 @@ public class Product {
 	
 	public String showList() {
 		return companyNum + " " + productCode + " " + productName + " " + price + " " + productCompany;
+	}
+	
+	public String userShowList() {
+		return productCode + " " + productName + " " + price + " " + productCompany;
+	}
+	
+	public String purchaseList() {
+		return userId + " " + productCode + " " + productName + " " + price + " " + productCompany;
 	}
 	
 }

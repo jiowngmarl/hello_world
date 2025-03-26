@@ -80,8 +80,6 @@ public class ProductJdbc {
 		return null;
 	}
 	
-	
-	
 	public List<Product> list(String company) {
 		List<Product> list = new ArrayList<Product>();
 		Connection connection =getConnection();
@@ -157,5 +155,37 @@ public class ProductJdbc {
 		}
 		return false;
 	}
+	
+
+	public List<Product> userlist(String userId) {
+		List<Product> list = new ArrayList<Product>();
+		Connection connection = getConnection();
+		String sql = "select *\r\n"
+				+ "from tbl_userproduct\r\n"
+				+ "where user_id = ?\r\n"
+				+ "order by product_code";
+		
+		try {
+			PreparedStatement psmt = connection.prepareStatement(sql);
+			psmt.setString(1, userId);
+			
+			ResultSet rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Product product = new Product();
+				product.setUserId(rs.getString("user_id"));
+				product.setProductCode(rs.getString("product_code"));
+				product.setProductName(rs.getString("product_name"));
+				product.setPrice(rs.getInt("product_price"));
+				product.setProductCompany(rs.getString("product_company"));
+				list.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	
 }
