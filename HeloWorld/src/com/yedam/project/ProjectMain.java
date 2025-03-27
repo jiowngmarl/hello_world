@@ -23,7 +23,7 @@ public class ProjectMain {
 		
 		while(true) {
 			
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			System.out.println("<사용자 로그인>");
 			System.out.println("<뒤로가기 : B>");
 			System.out.print("ID 입력 : ");
@@ -35,7 +35,7 @@ public class ProjectMain {
 			
 			System.out.print("PW 입력 : ");
 			String userPw = scanner.nextLine();
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			
 			User user = loginUser(userId, userPw);
 			
@@ -52,12 +52,21 @@ public class ProjectMain {
 		
 		while(true) {
 			
-			System.out.print("<사용자 회원가입> ID 입력 : ");
-			String putUserId = scanner.nextLine();		
+			System.out.println("<사용자 회원가입>");
+			System.out.println("<뒤로가기 : B>");
+			System.out.print("ID 입력 : ");
+			String putUserId = scanner.nextLine();	
+			
 			if(dao1.select(putUserId) != null) {
 				System.out.println("등록된 ID 입니다");
 				continue;
 			}
+			
+			if(putUserId.equals("b")) {
+				break;
+			}
+			
+
 			System.out.print("<사용자 회원가입> PW 입력 : ");
 			String putUserPw = scanner.nextLine();
 			
@@ -76,7 +85,7 @@ public class ProjectMain {
 		
 		while(true) {
 			
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			System.out.println("<판매자 로그인>");
 			System.out.println("<뒤로가기 : B>");
 			System.out.print("사업자번호 입력 : ");
@@ -90,7 +99,7 @@ public class ProjectMain {
 			String companyId = scanner.nextLine();
 			System.out.print("PW 입력 : ");
 			String companyPw = scanner.nextLine();
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			
 			Company company = loginCompany(companyNum, companyId, companyPw);
 			
@@ -106,8 +115,15 @@ public class ProjectMain {
 	public void newCompanyAccount() { // 판매자 회원가입
 		
 		while(true) {
+			System.out.println("<판매자 회원가입>");
+			System.out.println("<뒤로가기 : B>");
 			System.out.print("<판매자 회원가입> 사업자번호 입력 : ");
 			String putCompanyNum = scanner.nextLine();
+			
+			if(putCompanyNum.equals("b")) {
+				break;
+			}
+			
 			System.out.print("<판매자 회원가입> ID 입력 : ");
 			String putCompanyId = scanner.nextLine();
 			if(dao2.select(putCompanyNum, putCompanyId) != null) {
@@ -134,24 +150,36 @@ public class ProjectMain {
 			
 			String loggedInUserId = projectMain.getLoggedInUserId();
 			List<Product> list = dao1.userList();
-			System.out.println("--------------------------------");
-			System.out.println("<상품코드><상품명><상품가격><회사명>");
+			System.out.println("--------------------------------------------");
+			System.out.printf("%-9s %-9s %-9s %-9s%n","<상품코드>","<상품명>","<상품가격>","<회사명>");
 			for(Product pro : list) {
-				System.out.println(pro.userShowList());
+				System.out.println(" " + pro.userShowList());
 			}
 			System.out.println("<1.상품구매><2.구매상품><3.종료>");
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			int userMenu = Integer.parseInt(scanner.nextLine());
 			
 			if(userMenu == 1) {
-				System.out.print("구매할 상품의 코드를 입력하세요 : ");
-				String productCode = scanner.nextLine();
 				
+				String productCode = "";
+				
+				while(true) {
+					
+					System.out.print("구매할 상품의 코드를 입력하세요 : ");
+					productCode = scanner.nextLine();
+					
+					if(!productCode.isBlank()) {
+						break;
+					}
+					System.out.println("코드를 입력하세요");
+				}
+				
+
 				List<Product> list1 = dao1.userSearchList(productCode);
 				for(Product pro : list1) {
-					System.out.println("---------------------------------");
+					System.out.println("--------------------------------------------");
 					System.out.println(pro.userShowList());
-					System.out.println("---------------------------------");
+					System.out.println("--------------------------------------------");
 				}
 				
 				Product selectProduct = null;
@@ -177,13 +205,14 @@ public class ProjectMain {
 					}	
 				}
 			} else if(userMenu == 2) {
-				System.out.println("---------------------------------");
+				System.out.println("-------------------------------------------------");
 				System.out.println("<구매목록>");
+				System.out.printf("%-9s %-9s %-9s %-9s %-9s%n","<아이디>","<상품코드>","<상품명>","<상품가격>","<회사명>");
 				List<Product> list2 = dao3.userlist(loggedInUserId);
 				for(Product pro : list2) {
-					System.out.println(pro.purchaseList());
+					System.out.println(" " + pro.purchaseList());
 				}
-				System.out.println("---------------------------------");
+				System.out.println("-------------------------------------------------");
 			} else if(userMenu == 3) {
 				System.out.println("종료합니다");
 				user = false;
@@ -195,19 +224,128 @@ public class ProjectMain {
 		}
 	}
 	
+	public void companyProductSystem() {
+		
+		while(true) {
+			
+			String loggedInCompanyNum = projectMain.getLoggedInCompanyNum();
+			
+			
+			System.out.println("--------------------------------------------");
+			System.out.println("<등록한 상품 목록>");
+			System.out.printf("%-9s %-9s %-9s %-9s %-9s%n","<사업자>","<상품코드>","<상품명>","<상품가격>","<회사명>");
+			List<Product> list = dao3.list(loggedInCompanyNum);
+			for(Product pro : list) {
+					System.out.println(" " + pro.showList());
+			}
+			System.out.println("<1.상품등록><2.상품정보수정><3.등록상품삭제><4.종료>");
+			System.out.println("--------------------------------------------");
+			
+			int num = Integer.parseInt(scanner.nextLine());
+			
+			if(num == 1) {
+								
+				System.out.println("<상품 등록>");
+				System.out.print("상품코드 : ");
+				String productCode = scanner.nextLine();
+				if(dao3.select(productCode) != null) {
+					System.out.println("등록된 코드의 상품입니다");
+					continue;
+				}
+				
+				System.out.print("상품명 : ");
+				String productName = scanner.nextLine();
+				System.out.print("상품가격 : ");
+				int price = Integer.parseInt(scanner.nextLine());
+				System.out.print("상품회사 : ");
+				String productCompany = scanner.nextLine();
+				
+				Company company = new Company(loggedInCompanyNum);
+				Product product = new Product(company, productCode, productName, price, productCompany);
+				
+				if(dao3.insert(product)) {
+					System.out.println("정상등록");
+				} else {
+					System.out.println("등록예외");
+				}
+				
+			} else if(num == 2) {
+				
+				while(true) {
+					
+					Product product = new Product();
+					
+					System.out.print("수정할 상품의 코드릅 입력하세요 : ");
+					String productCode = scanner.nextLine();
+
+					if(productCode.isBlank()) {
+						System.out.println("상품코드를 반드시 입력하세요");
+						continue;
+					}
+					
+					System.out.print("상품명 수정 : ");
+					String updateProductName = scanner.nextLine();
+					System.out.print("상품가격 수정 : ");
+					int updateProductPrice = Integer.parseInt(scanner.nextLine());		
+					System.out.print("상품회사 수정 : ");
+					String updateProductCompany = scanner.nextLine();
+					
+					
+					product.setProductCode(productCode);
+					product.setProductName(updateProductName);
+					product.setPrice(updateProductPrice);					
+					product.setProductCompany(updateProductCompany);
+					
+					if(dao3.update(product)) {
+						System.out.println("수정성공");
+					} else {
+						System.out.println("구매자가 존재하여 수정할 수 없습니다");
+					}
+					break;
+				}
+					
+			} else if(num == 3) {
+				
+				System.out.print("삭제할 상품의 코드를 입력하세요 : ");
+				String deleteProduct = scanner.nextLine();
+				
+				if(deleteProduct.isBlank()) {
+					System.out.println("상품코드를 반드시 입력하세요");
+					continue;
+				}
+				
+				
+				if(dao3.delete(deleteProduct)) {
+					System.out.println("삭제성공");
+				} else {
+					System.out.println("구매자가 존재하여 삭제할 수 없습니다");
+				}
+				
+			} else if(num == 4) {
+				
+				System.out.println("종료합니다");
+				company = false;
+				break;
+			} else {
+				System.out.println("다시 입력하세요");
+			}
+		}	
+	}
+	
+	
 	public void loginTotal() {
 		
 		while(true) {
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			System.out.println("1.사용자 2.판매자");
-			System.out.println("---------------------------------");
+			System.out.println("--------------------------------------------");
 			int menu = Integer.parseInt(scanner.nextLine());
 			
 			if (menu == 1) {
-				System.out.println("---------------------------------");
+				System.out.println("--------------------------------------------");
 				System.out.println("<사용자>");
 				System.out.println("1.로그인 2.회원가입");
-				System.out.println("---------------------------------");
+				System.out.println("--------------------------------------------");
 				int num1 = Integer.parseInt(scanner.nextLine());
 				
 				if(num1 == 1)  {
@@ -223,10 +361,10 @@ public class ProjectMain {
 					projectMain.newUserAccount();
 				}
 			} else if(menu == 2) {
-				System.out.println("---------------------------------");
+				System.out.println("--------------------------------------------");
 				System.out.println("<판매자>");
 				System.out.println("1.로그인 2.회원가입");
-				System.out.println("---------------------------------");
+				System.out.println("--------------------------------------------");
 				int num2 = Integer.parseInt(scanner.nextLine());
 				
 				if(num2 == 1) {
@@ -273,9 +411,7 @@ public class ProjectMain {
 	}
 	
 	
-	public static void main(String[] args) {
-				
-		
+	public void start() {
 		
 		while(select) {
 			projectMain.loginTotal();
@@ -286,162 +422,10 @@ public class ProjectMain {
 		}
 
 		while(company) {
-			
-			String loggedInCompanyNum = projectMain.getLoggedInCompanyNum();
-			System.out.println("---------------------------------");
-			System.out.println("<등록한 상품 목록>");
-			List<Product> list = dao3.list(loggedInCompanyNum);
-			for(Product pro : list) {
-					System.out.println(pro.showList());
-			}
-			System.out.println("<1.상품정보수정><2.등록상품삭제><3.종료>");
-			System.out.println("---------------------------------");
-			
-			break;
+			projectMain.companyProductSystem();
 		}
 		
 	}
 }	
 
-//		
-//		
-////		--상품코드를 입력받고 구매하기
-////			System.out.print("구매할 상품의 코드를 입력하세요 : ");
-//			String productCode = scanner.nextLine();
-//			
-//			
-//			List<Product> list1 = dao1.userSearchList(productCode);
-//			for(Product pro : list1) {
-//				System.out.println(pro.userShowList());
 
-//		
-////		-- 코드를 검색한 상품의 구매여부 확인
-//		Product selectProduct = null;
-//		System.out.print("검색한 상품을 구매하시겠습니까 (Y/N) : ");
-//		String answer = scanner.nextLine();
-//		
-//		if(answer.equals("y")) {
-//			List<Product> list2 = dao1.userSearchList(productCode);
-//			for(Product pro : list2) {
-//				if(pro.getProductCode().equals(productCode)) {
-//					selectProduct = pro;
-//					break;
-//				}
-//			}
-//			
-//			if(selectProduct != null) {
-//				selectProduct.setUserId(loggedInUserId);
-//				dao1.userInsert(selectProduct);
-//				System.out.println("구매완료");
-//			} else if(answer.equals("n")) {
-//				System.out.println("구매실패");
-//			}	
-//		
-//		}
-		
-//		List<Product> list2 = dao3.userlist(loggedInUserId);
-//		for(Product pro : list2) {
-//			System.out.println(pro.purchaseList());
-//		}
-		
-		
-
-
-				
-				
-
-		
-//		--메서드를 이용한 판매자 로그인 및 등록한 상품 목록을 출력
-
-		
-
-//		--판매자 상품 수정
-//		System.out.print("수정할 상품의 코드릅 입력하세요 : ");
-//		String productCode = scanner.nextLine();
-//		System.out.print("상품명 수정 : ");
-//		String updateProductName = scanner.nextLine();
-//		System.out.print("상품가격 수정 : ");
-//		String updateProductPrice = scanner.nextLine();
-//		System.out.print("상품회사 수정 : ");
-//		String updateProductCompany = scanner.nextLine();
-//		
-//		Product product = new Product();
-//		product.setProductCode(productCode);
-//		product.setProductName(updateProductName);
-//		product.setPrice(Integer.parseInt(updateProductPrice));
-//		product.setProductCompany(updateProductCompany);
-//		
-//		if(dao3.update(product)) {
-//			System.out.println("수정성공");
-//		} else {
-//			System.out.println("수정예외");
-//		}
-		
-//		--판매자 상품 삭제
-//		System.out.print("삭제할 상품의 코드를 입력하세요 : ");
-//		String deleteProduct = scanner.nextLine();
-//		
-//		if(dao3.delete(deleteProduct)) {
-//			System.out.println("삭제성공");
-//		} else {
-//			System.out.println("삭제예외");
-//		}
-		
-//		--판매자 상품등록
-//		while(true) {
-//			
-//			System.out.println("<상품 등록>");
-//			System.out.print("상품코드 : ");
-//			String productCode = scanner.nextLine();
-//			if(dao3.select(productCode) != null) {
-//				System.out.println("등록된 코드의 상품입니다");
-//				continue;
-//			}
-//			
-//			System.out.print("상품명 : ");
-//			String productName = scanner.nextLine();
-//			System.out.print("상품가격 : ");
-//			int price = Integer.parseInt(scanner.nextLine());
-//			System.out.print("상품회사 : ");
-//			String productCompany = scanner.nextLine();
-//			
-//			Product product = new Product(loggedInCompanyNum ,productCode, productName, price, productCompany);
-//			
-//			if(dao3.insert(product)) {
-//				System.out.println("정상등록");
-//			} else {
-//				System.out.println("등록예외");
-//			}
-//		}
-		
-
-
-
-
-//while (run) {
-//	
-//	Scanner scanner = new  Scanner(System.in);
-//	System.out.println("------------------------------");
-//	System.out.println("1.사용자 2.판매자");
-//	System.out.println("------------------------------");
-//	String num = scanner.nextLine();
-//
-//	switch (Integer.parseInt(num)) {
-//	case 1 :
-//		System.out.print("ID입력 : ");
-//		String id1 = scanner.nextLine();
-//		System.out.print("PW입력 : ");
-//		String pw1 = scanner.nextLine();
-//		run = false;
-//		break;
-//	case 2 :
-//		System.out.print("ID입력 : ");
-//		String id2 = scanner.nextLine();
-//		System.out.print("PW입력 : ");
-//		String pw2 = scanner.nextLine();
-//		run = false;
-//		break;
-//	default : 
-//		System.out.println("다시 입력하세요");
-//	}
-//}

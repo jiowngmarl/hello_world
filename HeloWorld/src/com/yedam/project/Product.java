@@ -1,5 +1,7 @@
 package com.yedam.project;
 
+import java.text.Format;
+
 public class Product {
 
 	String userId;
@@ -81,15 +83,15 @@ public class Product {
 	}
 	
 	public String showList() {
-		return companyNum + " " + productCode + " " + productName + " " + price + " " + productCompany;
+		return String.format("%-10s %-10s %-10s %-10s %-10s%n", companyNum, productCode, productName, price, productCompany);
 	}
 	
 	public String userShowList() {
-		return productCode + " " + productName + " " + price + " " + productCompany;
+		return String.format("%-10s %-10s %-10s %-10s%n", productCode, productName, price, productCompany);
 	}
 	
 	public String purchaseList() {
-		return userId + " " + productCode + " " + productName + " " + price + " " + productCompany;
+		return String.format("%-10s %-10s %-10s %-10s %-10s%n", userId, productCode, productName, price, productCompany);
 	}
 	
 }

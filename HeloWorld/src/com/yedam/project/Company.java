@@ -8,6 +8,10 @@ public class Company {
 	
 	public Company() {}
 	
+	public Company(String companyNum) {
+		this.companyNum = companyNum;
+	}
+	
 	public Company(String companyNum, String companyId, String companyPw) {
 		this.companyNum = companyNum;
 		this.companyId = companyId;

@@ -14,7 +14,7 @@ public class ProductJdbc {
 
 	Connection getConnection() {
 		
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.23:1521:xe";
 		String userId = "scott";
 		String userPw = "tiger";
 		
@@ -113,6 +113,28 @@ public class ProductJdbc {
 	public boolean update(Product product) {
 		
 		Connection connection = getConnection();
+		
+		String sql1= "select * \r\n"
+				+ "from tbl_userproduct\r\n"
+				+ "where product_code = ?";
+		
+		try {
+			PreparedStatement psmt1 = connection.prepareStatement(sql1);
+			psmt1.setString(1, product.productCode);
+			
+			ResultSet rs = psmt1.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				
+				if(count > 0) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		String sql = "update tbl_product\r\n"
 				+ "   set product_name = nvl(?, product_name),\r\n"
 				+ "       product_price = ?,\r\n"
@@ -140,13 +162,35 @@ public class ProductJdbc {
 	public boolean delete (String productCode) {
 		
 		Connection connection = getConnection();
-		String sql = "delete from tbl_product\r\n"
+		
+		String sql1= "select * \r\n"
+				+ "from tbl_userproduct\r\n"
 				+ "where product_code = ?";
 		
 		try {
-			PreparedStatement psmt = connection.prepareStatement(sql);
-			psmt.setString(1, productCode);
-			int r = psmt.executeUpdate();
+			PreparedStatement psmt1 = connection.prepareStatement(sql1);
+			psmt1.setString(1, productCode);
+			
+			ResultSet rs = psmt1.executeQuery();
+			
+			if(rs.next()) {
+				int count = rs.getInt(1);
+				
+				if(count > 0) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql2 = "delete from tbl_product\r\n"
+				+ "where product_code = ?";
+		
+		try {
+			PreparedStatement psmt2 = connection.prepareStatement(sql2);
+			psmt2.setString(1, productCode);
+			int r = psmt2.executeUpdate();
 			if(r > 0) {
 				return true;
 			}
