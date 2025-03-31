@@ -18,4 +18,6 @@ public interface BoardMapper {
 	int updateBoard(BoardVo board);
 	// 삭제.
 	int deleteBoard(int boardNo);
+	// 상세조회
+	BoardVo selectOne(int boardNo);
 }
