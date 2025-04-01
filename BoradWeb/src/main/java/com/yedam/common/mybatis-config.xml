@@ -8,6 +8,7 @@
 </settings>
 <typeAliases>
 	<typeAlias alias = "board" type = "com.yedam.vo.BoardVo"></typeAlias>
+	<typeAlias alias = "search" type = "com.yedam.common.SearchDTO"></typeAlias>
 </typeAliases>
 
   <environments default="development">
