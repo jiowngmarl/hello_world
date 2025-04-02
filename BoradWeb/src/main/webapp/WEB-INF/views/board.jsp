@@ -1,38 +1,46 @@
-<%@page import="com.yedam.vo.BoardVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="includes/header.jsp"/>
 
-	<!-- webapp/WEB-INF/views/board.jsp -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-	<%
-		BoardVo board = (BoardVo) request.getAttribute("board");
-		String paging = (String) request.getAttribute("page");
-	%>
+	<!-- webapp/WEB-INF/views/board.jsp -->
 
 	<h3>상세페이지(board.jsp)</h3>
 	<form action="modifyForm.do">
-	<input type="hidden" name="bno" value="<%=board.getBoardNo() %>">
-	<input type="hidden" name="page" value="<%=paging %>">
+	<input type="hidden" name="bno" value="${board.boardNo }">
+	<input type="hidden" name="page" value="${page }">
 	<table class="table">
 		<tr>
-			<th>글번호</th><td><%=board.getBoardNo() %></td>
-			<th>작성자</th><td><%=board.getWriter() %></td>
+			<th>글번호</th><td><c:out value="${board.boardNo }"/></td>
+			<th>작성자</th><td><c:out value="${board.writer }"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td><textarea class="form-control" cols="25" rows="3"><%=board.getContent() %></textarea></td>
+			<td><textarea class="form-control" cols="25" rows="3"><c:out value="${board.content }"/></textarea></td>
 		</tr>
 		<tr>
 			<th>작성일시</th>
-			<td colspan="3"><%=board.getWriteDate() %></td>
+			<td colspan="3"><fmt:formatDate value="${board.writeDate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			
 		</tr>
 		<tr>
-			<td colspan="3" align="center">
+			<td colspan="4" align="center">
 			<input type="submit" value="수정" class="btn btn-warning">
-			<button type="button" class="btn btn-danger">삭제</button>
+			<c:choose>
+				<c:when test="${logId != null && logId == board.writer }">
+					<button type="button" class="btn btn-danger">삭제</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-danger" disabled>삭제</button>
+				</c:otherwise>
+			</c:choose>
 			</td>
 		</tr>
+			<c:if test="${msg != null }">
+				<tr><td align="center" style="color : red;" colspan="4">${msg }</td>
+			</c:if>
 	</table>
 	</form>
 	<p><a href='boardList.do'>목록이동</a></p>
@@ -41,7 +49,7 @@
 		document.querySelector('button.btn.btn-danger').addEventListener('click', deleteFnc);
 		// 삭제함수
 		function deleteFnc() {
-			location.href = 'deleteForm.do?bno=<%=board.getBoardNo() %>'; // 삭제화면으로 이동 -> 이동한곳에서 삭제처리
+			location.href = 'deleteForm.do?bno=${board.boardNo}>'; // 삭제화면으로 이동 -> 이동한곳에서 삭제처리
 		}
 	</script>
 <jsp:include page="includes/footer.jsp"/>

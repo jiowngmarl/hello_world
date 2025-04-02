@@ -19,7 +19,7 @@
 	int age = 30;
 	SqlSession sqlSession = DataSource.getInstance().openSession();
 	BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-	List<BoardVo> list = mapper.selectBoard();
+	List<BoardVo> list = mapper.selectBoard(null);
 	%>
 	<h3>글목록</h3>
 	<ul>

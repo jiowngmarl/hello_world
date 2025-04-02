@@ -18,16 +18,21 @@ public class DeleteFormControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//삭제 화면 (deleteForm.jsp)
 		String bno = req.getParameter("bno");
 		
-		SqlSession sqlSession = DataSource.getInstance().openSession();
+		BoardVo board = new BoardVo();
+		board.setBoardNo(Integer.parseInt(bno));
+
+		
+		SqlSession sqlSession = DataSource.getInstance().openSession(true);
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
-		
-		BoardVo board = mapper.selectOne(Integer.parseInt(bno));
-		req.setAttribute("board", board);
-		
-		req.getRequestDispatcher("/WEB-INF/views/deleteBoard.jsp").forward(req, resp);
+		int r = mapper.deleteBoard(board.getBoardNo());
+			
+			if(r>0) {
+				resp.sendRedirect(bno);
+			} else {
+				System.out.println("삭제오류");
+		}
 				
 	}
 

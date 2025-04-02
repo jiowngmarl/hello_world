@@ -32,7 +32,7 @@ public static void main(String[] args) {
 //				System.out.println("등록실패");
 //			}
 			
-			List<BoardVo> list = mapper.selectBoard(3);    //sqlSession.selectList("com.yedam.mapper.BoardMapper.selectBoard");
+			List<BoardVo> list = mapper.selectBoard(null);    //sqlSession.selectList("com.yedam.mapper.BoardMapper.selectBoard");
 			for(BoardVo brd : list) {
 				System.out.println(brd.toString());
 			}
