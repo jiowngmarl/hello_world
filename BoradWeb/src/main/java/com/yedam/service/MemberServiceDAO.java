@@ -14,4 +14,10 @@ public class MemberServiceDAO implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean addMember(MemberVo member) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

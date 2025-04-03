@@ -29,7 +29,7 @@ public class BoardControl implements Control {
 		req.setAttribute("page", page);
 		
 		// board.jsp에 전달
-		req.getRequestDispatcher("/WEB-INF/views/board.jsp").forward(req, resp);
+		req.getRequestDispatcher("common/board.tiles").forward(req, resp);
 	}
 
 }

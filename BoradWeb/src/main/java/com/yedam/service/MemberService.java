@@ -7,4 +7,5 @@ public interface MemberService {
 
 	//로그인 
 	MemberVo login(String id, String pw);
+	boolean addMember(MemberVo member);
 }
