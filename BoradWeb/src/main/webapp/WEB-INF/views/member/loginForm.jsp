@@ -129,7 +129,7 @@ span.psw {
 </head>
 <body>
 <%
-	String msg = (String) request.getAttribute("msg");
+  String msg = (String) request.getAttribute("msg");
 %>
 
 <h2>Modal Login Form</h2>
@@ -145,12 +145,14 @@ span.psw {
     </div>
 
     <div class="container">
-      <!-- 로그인 실패시 msg를 출력하도록 지정 -->
+      <!-- msg 출력. -->
       <%
-      	if (msg != null) {
+        if (msg != null) {
       %>
       <p style="color: red"><%=msg %></p>
-      <%} %>
+      <%
+        }
+      %>
       
       <label for="uname"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="uname" required>

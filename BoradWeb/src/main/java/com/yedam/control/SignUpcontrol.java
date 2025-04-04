@@ -20,7 +20,7 @@ public class SignUpcontrol implements Control {
 		
 		if(req.getMethod().equals("GET")) {			
 			// 1. 회원가입 화면 (get방식이 들어오면 회원가입 화면) WEB-INF/views/signForm.jsp
-			req.getRequestDispatcher("WEB-INF/views/signForm.jsp").forward(req, resp);
+			req.getRequestDispatcher("member/signForm.tiles").forward(req, resp);
 		} else {
 			// 2. 회원가입 처리 (post방식이 들어오면 회원가입 처리), (파일업로드:images, db등록)
 			

@@ -18,27 +18,30 @@ public class ModifyFormControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// bno=? 의 파라메터가 넘어오고 그 값을 조회, 오픈할 페이지에(modifyBoard.jsp) 넘겨준다
-	
+		// bno=15 단건조회. modifyBoard.jsp
+
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
-		
+
 		SqlSession sqlSession = DataSource.getInstance().openSession();
 		BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 		BoardVo board = mapper.selectOne(Integer.parseInt(bno));
-		
-		// id가 동일하여 수정권한이 있는지 확인
+
+		// 권한체크.
 		HttpSession session = req.getSession();
 		String logId = (String) session.getAttribute("logId");
-		
+
 		req.setAttribute("board", board);
 		req.setAttribute("page", page);
-		
+
 		if (logId != null && logId.equals(board.getWriter())) {
-			req.getRequestDispatcher("common/modifyBoard.tiles").forward(req, resp);
+			// board.jsp 전달.
+			req.getRequestDispatcher("board/modifyBoard.tiles")//
+					.forward(req, resp);
 		} else {
 			req.setAttribute("msg", "권한이 없습니다");
-			req.getRequestDispatcher("common/board.tiles").forward(req, resp);
+			req.getRequestDispatcher("board/board.tiles")//
+					.forward(req, resp);
 		}
 
 	}

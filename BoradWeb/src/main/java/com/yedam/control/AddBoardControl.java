@@ -22,7 +22,7 @@ public class AddBoardControl implements Control {
 		
 		if(req.getMethod().equals("GET")) {
 			// get 방식은 url에 직접 입력하거나 링크를 클리하여 넘어가는 것을 말한다
-			req.getRequestDispatcher("/WEB-INF/views/addForm.jsp").forward(req, resp); // 요청재지정
+			req.getRequestDispatcher("common/addForm.tiles").forward(req, resp); // 요청재지정
 		} else if(req.getMethod().equals("POST")) {
 			// post 방식이면 등록하도록 지정
 			

@@ -12,7 +12,7 @@
   </definition>
   
   <definition name="WILDCARD:common/*" extends="myapp.common">
-  	<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+  	<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" />
   </definition>
   
   <definition name="myapp.admin" template="/WEB-INF/admin/template.jsp">
@@ -21,7 +21,18 @@
   </definition>
   
    <definition name="WILDCARD:manager/*" extends="myapp.admin">
-  	<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+  	<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
+  </definition>
+  
+  <definition name="WILDCARD:admin/*" extends="myapp.admin">
+  	<put-attribute name="body" value="/WEB-INF/views/etc/{1}.jsp" />
+  </definition>
+  
+  
+  <!-- 기타 -->
+  
+   <definition name="WILDCARD:*/*" extends="myapp.common">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
   </definition>
   
 </tiles-definitions>

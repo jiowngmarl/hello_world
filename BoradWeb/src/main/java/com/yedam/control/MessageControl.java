@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
 
-public class LoginFormControl implements Control {
+public class MessageControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 로그인 화면 open. WEB-INF/views/loginForm.jsp
-		req.getRequestDispatcher("WEB-INF/views/member/loginForm.jsp")//
-				.forward(req, resp);
+		// TODO Auto-generated method stub
+		req.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(req, resp);
 	}
 
 }

@@ -6,19 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-
 import com.yedam.common.Control;
-import com.yedam.common.DataSource;
-import com.yedam.mapper.BoardMapper;
-import com.yedam.vo.BoardVo;
 
 public class DeleteBoardControl implements Control {
-	
+
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		
+		// TODO Auto-generated method stub
 
 	}
 

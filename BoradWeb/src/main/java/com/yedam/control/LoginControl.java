@@ -27,7 +27,7 @@ public class LoginControl implements Control {
 		
 		if(mvo == null) {
 			req.setAttribute("msg", "아이디와 비밀번호를 확인하세요");
-			req.getRequestDispatcher("common/loginForm.tiles").forward(req, resp);
+			req.getRequestDispatcher("member/loginForm.tiles").forward(req, resp);
 		} else {
 			
 			// 로그인성공 => 세션객체에 로그인 정보 저장
@@ -37,9 +37,9 @@ public class LoginControl implements Control {
 			
 			if(mvo.getResponsibility().equals("User")) {
 //				resp.sendRedirect("boardList.do");
-				req.getRequestDispatcher("common/main.tiles").forward(req, resp);
+				req.getRequestDispatcher("etc/main.tiles").forward(req, resp);
 			} else if(mvo.getResponsibility().equals("Admin")) {
-				req.getRequestDispatcher("manager/main.tiles").forward(req, resp);
+				req.getRequestDispatcher("admin/main.tiles").forward(req, resp);
 			}
 			
 		}
