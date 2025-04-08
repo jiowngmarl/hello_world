@@ -30,8 +30,6 @@ public class BoardListControl implements Control {
 		String kw = req.getParameter("keyword");
 		req.setAttribute("keyword", kw);
 		
-		
-		
 		// 페이지 계산
 		
 		// 글목록정보를 가져와서 jsp에서 출력하기 -> 페이지재지정
@@ -51,6 +49,6 @@ public class BoardListControl implements Control {
 		req.setAttribute("searchCondition", sc);
 		req.setAttribute("keyword", kw);
 		
-		req.getRequestDispatcher("common/boardList.tiles").forward(req, resp);
+		req.getRequestDispatcher("common/boardList2.tiles").forward(req, resp);
 	}
 }

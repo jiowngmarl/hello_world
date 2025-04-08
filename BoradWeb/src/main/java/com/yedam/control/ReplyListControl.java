@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.common.Control;
+import com.yedam.common.SearchDTO;
 import com.yedam.service.ReplyService;
 import com.yedam.service.ReplyServiceImpl;
 import com.yedam.vo.ReplyVo;
@@ -20,9 +21,14 @@ public class ReplyListControl implements Control {
 		
 		// json 형태의 글번호(152) 댓글 데이터 
 
-		String bno =  req.getParameter("bno");
+		String bno =  req.getParameter("bno"); // 원본글번호
+		String page = req.getParameter("page"); // 페이지정보
+		SearchDTO search = new SearchDTO();
+		search.setBoardNo(Integer.parseInt(bno));
+		search.setPage(Integer.parseInt(page));
+		
 		ReplyService svc = new ReplyServiceImpl();
-		List<ReplyVo> list = svc.replyList(Integer.parseInt(bno));
+		List<ReplyVo> list = svc.replyList(search);
 		String json = "[";
 		for(int i=0; i<list.size(); i++) {
 			json += "{\"replyNo\":"+list.get(i).getReplyNo()+","+"\"reply\":\""+list.get(i).getReply()+"\","+"\"replyer\":\"" + list.get(i).getReplyer()+"\","+"\"replyDate\":\""+list.get(i).getReplyDate()+"\"," + "\"boardNo\":"+list.get(i).getBoardNo()+"}";
