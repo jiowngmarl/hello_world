@@ -6,7 +6,7 @@
 <head>
   <meta charset='utf-8' />
   <script src='js/index.global.js'></script>
-  <script>
+  <script >
     document.addEventListener('DOMContentLoaded', async function () {
       var calendarEl = document.getElementById('calendar');
 
@@ -32,12 +32,18 @@
         selectMirror: true,
         select: function (arg) {
           var title = prompt('Event Title:');
+         
           if (title) {
         	let allDay = arg.allDay; // 하루전체일정, 부분일정
         	let start = allDay ? arg.startStr : arg.startStr.subString(0, 19);
         	let end = allDay ? arg.endStr : arg.endStr.subString(0, 19);
         	
-        	let r1 = await fetch('addEvent.do?title'+title+'&start='+start+'&end'+end);
+        	//let r1 = await fetch('addEvent.do?title'+title+'&start'+start+'&end'+end);
+        	let r1 = await fetch('addEvent.do', {
+        		method: 'post',
+        		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        		body: 'title='+title+'&start='+start+'&end='+end
+        	});
         	let r2 = await r1.json();
         	if(r2,retCode = 'OK')
 	            calendar.addEvent({
