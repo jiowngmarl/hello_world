@@ -23,6 +23,8 @@
 	<tbody id="centerList"></tbody>
 	</table>
 
+	<ul id="list"></ul>
+
 	<script>
 		let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&serviceKey=y8Nfwf52m%2FWqRg68chBqwZB9X%2BkFfza1a26sZcr6eLc0SyOVG1zIXoRtJYa2Iyz5%2Bm7cHYOaZ3Slkh6aScYsTA%3D%3D';
 		let centerList = [];
@@ -96,5 +98,6 @@
 				window.open('map.jsp?lat='+center.lat+'&lng='+center.lng);
 			}
 	</script>
+	<script src="js/array2.js"></script>
 </body>
 </html>
